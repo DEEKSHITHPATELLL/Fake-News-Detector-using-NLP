@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector using NLP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Fake News Detector using NLP</h1>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="text-tab">
+                <i class="fas fa-text"></i> Check Text
+            </button>
+            <button class="tab-btn" data-tab="url-tab">
+                <i class="fas fa-link"></i> Check URL
+            </button>
+        </div>
+        <div class="tab-content">
+            <div id="text-tab" class="tab active">
+                <div class="input-card">
+                    <h2>Paste Your Claim Here</h2>
+                    <textarea id="textInput" placeholder="Enter the news claim or statement you want to verify...
+Example: 'The Earth is flat and scientists are hiding the truth'" 
+                              rows="6"></textarea>
+                    
+                    <button id="checkBtn" class="btn btn-primary">
+                        <i class="fas fa-check-circle"></i> Check Claim
+                    </button>
+                </div>
+            </div>
+            <div id="url-tab" class="tab">
+                <div class="input-card">
+                    <h2>Verify Article from URL</h2>
+                    <input type="url" id="urlInput" placeholder="Enter URL of news article...
+Example: https://example.com/news-article" class="url-input">
+                    
+                    <button id="checkUrlBtn" class="btn btn-primary">
+                        <i class="fas fa-globe"></i> Check URL
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="result-card">
+                <div class="verdict-box" id="verdictBox">
+                    <div class="verdict-icon">
+                        <i class="fas fa-circle-notch"></i>
+                    </div>
+                    <div class="verdict-text">
+                        <div class="verdict-label" id="verdictLabel">Analyzing...</div>
+                        <div class="verdict-confidence" id="verdictConfidence"></div>
+                    </div>
+                </div>
+                <div class="confidence-section">
+                    <h3>Confidence Scores</h3>
+                    <div class="confidence-bars">
+                        <div class="confidence-item">
+                            <div class="confidence-label">
+                                <span>Likely FAKE</span>
+                                <span id="fakePercent">0%</span>
+                            </div>
+                            <div class="confidence-bar">
+                                <div id="fakeBar" class="confidence-fill fake-fill"></div>
+                            </div>
+                        </div>
+                        <div class="confidence-item">
+                            <div class="confidence-label">
+                                <span>Likely TRUE</span>
+                                <span id="truePercent">0%</span>
+                            </div>
+                            <div class="confidence-bar">
+                                <div id="trueBar" class="confidence-fill true-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Decision Source</span>
+                        <span class="info-value" id="decisionSource">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WordNet Match</span>
+                        <span class="info-value" id="wordnetMatch">-</span>
+                    </div>
+                </div>>
+                <div id="apiMatchesSection" style="display: none;">
+                    <h3>Fact-Check Database Matches</h3>
+                    <div id="apiMatches" class="api-matches"></div>
+                </div>
+                <div class="explanation-section" id="explanationSection" style="display: none;">
+                    <h3>Top Contributing Factors</h3>
+                    <div id="explanation" class="explanation-content"></div>
+                </div>
+                <div class="original-text-section">
+                    <h3>Original Text</h3>
+                    <p id="originalText" class="original-text"></p>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-redo"></i> Check Another
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyResults()">
+                        <i class="fas fa-copy"></i> Copy Results
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Analyzing claim...</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
