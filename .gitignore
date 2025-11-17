@@ -5,3 +5,5 @@ venv/
 model.joblib
 vectorizer.joblib
 Api key.txt
+data/dataset.csv
+data/*.csv
